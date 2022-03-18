@@ -10,7 +10,7 @@ const MainContainer = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`http://api.napster.com/v2.2/tracks/top?apikey=${NAPSTER_API_KEY}`);
+            const response = await fetch(`https://api.napster.com/v2.2/tracks/top?apikey=${NAPSTER_API_KEY}`);
             const data = await response.json();
             setSongsList(data.tracks);
         })();
