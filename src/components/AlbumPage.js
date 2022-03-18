@@ -12,7 +12,7 @@ const AlbumPage = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`http://api.napster.com/v2.2/albums/${album_id}?apikey=${NAPSTER_API_KEY}`);
+            const response = await fetch(`https://api.napster.com/v2.2/albums/${album_id}?apikey=${NAPSTER_API_KEY}`);
             const data = await response.json();
             if(data.albums.length > 0) {
                 setAlbumDetails(data.albums[0]); 
@@ -24,8 +24,7 @@ const AlbumPage = () => {
     }, []);
 
     const image_url = `https://api.napster.com/imageserver/v2/albums/${album_id}/images/500x500.jpg`;
-  
-    return (
+      return (
         <Box component="main" sx={{ flexGrow: 1, p: 3}}>
             <Toolbar />
             <Stack direction="row" spacing={10}>
