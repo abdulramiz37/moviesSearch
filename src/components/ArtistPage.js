@@ -20,7 +20,7 @@ const ArtistPage = () => {
             const song_response = await fetch(`https://api.napster.com/v2.2/artists/${artist_id}/tracks?apikey=${NAPSTER_API_KEY}&limit=20`);
             const song_data = await song_response.json();
             setSongList(song_data.tracks);
-        })();SS
+        })();
     }, []);
 
     const image_url = `https://api.napster.com/imageserver/v2/artists/${artist_id}/images/633x422.jpg`;
