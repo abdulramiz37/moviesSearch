@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Toolbar, Paper, Stack, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { Box, Toolbar, Paper, Stack, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, IconButton } from '@mui/material';
 import { NAPSTER_API_KEY } from '../constants';
 import SongTableRow from './SongTableRow';
 
@@ -20,8 +20,8 @@ const ArtistPage = () => {
             const song_response = await fetch(`https://api.napster.com/v2.2/artists/${artist_id}/tracks?apikey=${NAPSTER_API_KEY}&limit=20`);
             const song_data = await song_response.json();
             setSongList(song_data.tracks);
-        })();
-    }, [artist_id]);
+        })();SS
+    }, []);
 
     const image_url = `https://api.napster.com/imageserver/v2/artists/${artist_id}/images/633x422.jpg`;
   
@@ -35,10 +35,11 @@ const ArtistPage = () => {
             
 
             <TableContainer component={Paper} sx={{mt: 12}}>
-                <Table size="small" sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>#</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
                             <TableCell>
                                 <Typography variant='h6'>Name</Typography>
                             </TableCell>
