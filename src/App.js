@@ -66,7 +66,8 @@
     
 //     }
   
-     
+// btoa(username + ":" + password))
+  
 //       {/* <Header/>
 //       <Add/>
 //     <Details/>
@@ -99,7 +100,7 @@
 
 // export default 
 // import * as React from 'react';
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import TopNav from './components/TopNav';
@@ -113,10 +114,9 @@ import TopSongsContainer from './components/TopSongsContainer';
 import TopAlbumsContainer from './components/TopAlbumsContainer';
 import AlbumPage from './components/AlbumPage';
 import SearchContainer from './components/SearchContainer';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import FavouriteListContainer from './components/FavouriteListContainer';
 import PlaylistContainer from './components/PlaylistContainer';
-
 
 const App = () => {
 
@@ -168,7 +168,7 @@ const App = () => {
         </Box>
         
       </Box>
-          <PlayerContainer/>
+          <PlayerContainer />
       </Box>
     </ThemeProvider>
     </>
