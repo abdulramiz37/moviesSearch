@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Paper, Stack, Box, Slider, Fab, IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { makeFavourite, removeFavourite, playNextSong, playPreviousSong } from '../actions';
 
 import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
@@ -8,26 +9,38 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import PauseIcon from '@mui/icons-material/Pause';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import RepeatOnIcon from '@mui/icons-material/RepeatOn';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const PlayerContainer = () => {
     const [volume, setVolume] = useState(50);
     const [playTime, setPlayTime] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const audioPlayer = useRef(null);
+    const [isRepeat, setRepeat] = useState(false);
+    const dispatch = useDispatch();
 
-    const appState = useSelector((state) => {
-      return state;
-    });
+    const appState = useSelector((state) => state);
+    
+    let image_url = "";
+    if(appState?.currently_playing?.albumId !== undefined) {
+      image_url = `https://api.napster.com/imageserver/v2/albums/${appState?.currently_playing.albumId}/images/200x200.jpg`;
+    }
+    
 
     useEffect(() => {
       audioPlayer.current.volume = (volume / 100);
     }, [volume]);
 
     useEffect(() => {
-      setPlayTime(0);
-      audioPlayer.current.play();
-      setPlaying(true);
-    }, [appState]);
+      if(audioPlayer.current.src !== "") {
+        setPlayTime(0);
+        audioPlayer.current.play();
+        setPlaying(true);
+      }
+    }, [appState.currently_playing]);
 
     const changeVolume = (_, volume) => {
         setVolume(volume);
@@ -45,6 +58,15 @@ const PlayerContainer = () => {
     const stopPlaying = () => {
       setPlaying(false);
       setPlayTime(0);
+      playNext();
+    }
+
+    const playNext = () => {
+      dispatch(playNextSong());
+    }
+
+    const playPrevious = () => {
+      dispatch(playPreviousSong());
     }
 
     const togglePlayPause = () => {
@@ -60,15 +82,31 @@ const PlayerContainer = () => {
       })
     }
 
+    const toggleRepeat = () => {
+      setRepeat((currentState) => {
+        const newState = !currentState;
+        audioPlayer.current.loop = newState;
+        return newState;
+      });
+    }
+
+    const toggleFavourite = () => {
+      if(appState.favourite_list[appState.currently_playing.id] === undefined) {
+        dispatch(makeFavourite(appState.currently_playing));
+      } else {
+        dispatch(removeFavourite(appState.currently_playing.id));
+      }
+    }
+
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, width: "100vw", zIndex: 1300 }} elevation={12}>
-      <audio ref={audioPlayer} src={appState.audio_url} onTimeUpdate={updatePlayTimeAudioPlayer} onEnded={stopPlaying} />
+      <audio ref={audioPlayer} src={appState?.currently_playing?.previewURL} onTimeUpdate={updatePlayTimeAudioPlayer} onEnded={stopPlaying} />
         <Slider
           aria-label="time-indicator"
           size="small"
           value={playTime}
           min={0}
-          max="30"
+          max={30}
           onChange={changePlayTime}
           sx={{
             mt: -4,
@@ -98,12 +136,20 @@ const PlayerContainer = () => {
           }}
         />
         <Stack direction="row" sx={{pb: 2, pl: 2, pr: 4}} spacing={2} justifyContent="space-between" alignItems="center">
-            <img height="75"  src={appState.img_url} />
+            <img height="75"  src={image_url} alt="" />
   
             <Box sx={{pl: 18}}>
               <Stack direction="row" spacing={2} alignItems="center">
+
+                <IconButton aria-label="delete" onClick={toggleFavourite}>
+                  {appState.favourite_list[appState.currently_playing.id] === undefined ? 
+                    <FavoriteBorderIcon />
+                  :
+                    <FavoriteIcon /> 
+                  }
+                </IconButton>
                 
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={playPrevious}>
                   <SkipPreviousIcon fontSize="large" />
                 </IconButton>
                 
@@ -111,8 +157,12 @@ const PlayerContainer = () => {
                   {isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' /> }
                 </Fab>
                 
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={playNext}>
                   <SkipNextIcon fontSize='large' />
+                </IconButton>
+
+                <IconButton aria-label="delete" onClick={toggleRepeat}>
+                  {isRepeat? <RepeatOnIcon /> : <RepeatIcon /> }
                 </IconButton>
                 
               </Stack>

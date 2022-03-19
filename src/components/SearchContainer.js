@@ -14,14 +14,14 @@ const SearchContainer = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`https://api.napster.com/v2.2/search?apikey=${NAPSTER_API_KEY}&per_type_limit=5&query=${query}`);
+            const response = await fetch(`http://api.napster.com/v2.2/search?apikey=${NAPSTER_API_KEY}&per_type_limit=5&query=${query}`);
             const data = await response.json();
             const search_result = data.search.data;
             setAlbumList(search_result.albums);
             setSongsList(search_result.tracks);
             setArtistList(search_result.artists);
         })();
-    }, [])
+    }, [query])
 
     return (
         <Box component="main" sx={{ flexGrow: 1, p: 3}}>

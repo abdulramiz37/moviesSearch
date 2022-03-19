@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import reducer from './reducer';
-import { Provider } from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 const store = createStore(reducer);
 

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Grid from '@mui/material/Grid';
+import { Box, Toolbar, Grid } from '@mui/material';
 import { NAPSTER_API_KEY } from '../constants';
-import ArtistCard from './ArtistCard';
 import AlbumCard from './AlbumCard';
 
 const TopAlbumsContainer = () => {
@@ -11,7 +8,7 @@ const TopAlbumsContainer = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch(`https://api.napster.com/v2.2/albums/top?apikey=${NAPSTER_API_KEY}`);
+            const response = await fetch(`http://api.napster.com/v2.2/albums/top?apikey=${NAPSTER_API_KEY}`);
             const data = await response.json();
             setAlbumList(data.albums);
         })();

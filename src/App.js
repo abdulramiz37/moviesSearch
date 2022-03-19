@@ -114,6 +114,9 @@ import TopAlbumsContainer from './components/TopAlbumsContainer';
 import AlbumPage from './components/AlbumPage';
 import SearchContainer from './components/SearchContainer';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import FavouriteListContainer from './components/FavouriteListContainer';
+import PlaylistContainer from './components/PlaylistContainer';
+
 
 const App = () => {
 
@@ -152,18 +155,20 @@ const App = () => {
         <SideNav />
         <Box sx={{mb: 8, width: 1}}>
           <Routes>
-            <Route path="MusicThrillProject/" element={<MainContainer />} />
-            <Route path="MusicThrillProject/top/artists" element={<TopArtistContainer />} />
-            <Route path="MusicThrillProject/artists/:artist_id" element={<ArtistPage />} />
-            <Route path="MusicThrillProject/top/albums" element={<TopAlbumsContainer />} />
-            <Route path="MusicThrillProject/albums/:album_id" element={<AlbumPage />} />
-            <Route path="MusicThrillProject/top/songs" element={<TopSongsContainer />} />
-            <Route path="MusicThrillProject/search/:query" element={<SearchContainer />} />
+            <Route path="/" element={<MainContainer />} />
+            <Route path="/top/artists" element={<TopArtistContainer />} />
+            <Route path="/artists/:artist_id" element={<ArtistPage />} />
+            <Route path="/top/albums" element={<TopAlbumsContainer />} />
+            <Route path="/albums/:album_id" element={<AlbumPage />} />
+            <Route path="/top/songs" element={<TopSongsContainer />} />
+            <Route path="/search/:query" element={<SearchContainer />} />
+            <Route path="/favourites" element={<FavouriteListContainer />} />
+            <Route path="/playlist" element={<PlaylistContainer />} />
           </Routes>
         </Box>
         
       </Box>
-          <PlayerContainer />
+          <PlayerContainer/>
       </Box>
     </ThemeProvider>
     </>

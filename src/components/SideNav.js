@@ -32,7 +32,7 @@ export default function ClippedDrawer() {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
         <List>
-            <Link to="MusicThrillProject/" style={{textDecoration: "none"}}>
+            <Link to="/" style={{textDecoration: "none"}}>
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />
@@ -40,7 +40,7 @@ export default function ClippedDrawer() {
                 <ListItemText primary="Home" />
               </ListItem>
             </Link>
-            <Link to="MusicThrillProject/top/artists" style={{textDecoration: "none"}}>
+            <Link to="/top/artists" style={{textDecoration: "none"}}>
               <ListItem button>
                 <ListItemIcon>
                   <PersonIcon />
@@ -48,7 +48,7 @@ export default function ClippedDrawer() {
                 <ListItemText primary="Top Artists" />
               </ListItem>
             </Link>
-            <Link to="MusicThrillProject/top/albums" style={{textDecoration: "none"}}>
+            <Link to="/top/albums" style={{textDecoration: "none"}}>
               <ListItem button>
                 <ListItemIcon>
                   <AlbumIcon />
@@ -56,7 +56,7 @@ export default function ClippedDrawer() {
                 <ListItemText primary="Top Albums" />
               </ListItem>
             </Link>
-            <Link to="MusicThrillProject/top/songs" style={{textDecoration: "none"}}>
+            <Link to="/top/songs" style={{textDecoration: "none"}}>
               <ListItem button>
                 <ListItemIcon>
                   <LibraryMusicIcon />
@@ -67,18 +67,22 @@ export default function ClippedDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <FavoriteIcon />
-              </ListItemIcon>
-              <ListItemText primary="My Favourites" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <QueueMusicIcon />
-              </ListItemIcon>
-              <ListItemText primary="My Playlist" />
-            </ListItem>
+            <Link to="/favourites" style={{textDecoration: "none"}}>
+              <ListItem button>
+                <ListItemIcon>
+                  <FavoriteIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Favourites" />
+              </ListItem>
+            </Link>
+            <Link to="/playlist" style={{textDecoration: "none"}}>
+              <ListItem button>
+                <ListItemIcon>
+                  <QueueMusicIcon />
+                </ListItemIcon>
+                <ListItemText primary="My Playlist" />
+              </ListItem>
+            </Link>
           </List>
         </Box>
       </Drawer>
