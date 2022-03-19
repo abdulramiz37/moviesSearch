@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Toolbar, Paper, Stack, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, IconButton } from '@mui/material';
+import { Box, Toolbar, Paper, Stack, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Skeleton } from '@mui/material';
 import { NAPSTER_API_KEY } from '../constants';
 import SongTableRow from './SongTableRow';
 
@@ -21,7 +21,7 @@ const ArtistPage = () => {
             const song_data = await song_response.json();
             setSongList(song_data.tracks);
         })();
-    }, []);
+    }, [artist_id]);
 
     const image_url = `https://api.napster.com/imageserver/v2/artists/${artist_id}/images/633x422.jpg`;
   
@@ -35,11 +35,10 @@ const ArtistPage = () => {
             
 
             <TableContainer component={Paper} sx={{mt: 12}}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table size="small" sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>#</TableCell>
                             <TableCell>
                                 <Typography variant='h6'>Name</Typography>
                             </TableCell>
@@ -51,9 +50,23 @@ const ArtistPage = () => {
                     </TableHead>
                     
                     <TableBody>
-                        {songList.map((single_song, idx) => (
-                            <SongTableRow data={single_song} key={idx} index={idx} owner="artist" />
-                        ))}
+                        {songList.length > 0 ? (
+                            songList.map((single_song, idx) => (
+                                <SongTableRow data={single_song} key={idx} index={idx} owner="artist" />
+                            ))
+                        ) : (
+                            (new Array(20)).fill(1).map((_, idx) => {
+                                return(
+                                    <TableRow key={idx}>
+                                        <TableCell><Skeleton animation="wave" /></TableCell>
+                                        <TableCell><Skeleton animation="wave" /></TableCell>
+                                        <TableCell><Skeleton animation="wave" /></TableCell>
+                                        <TableCell><Skeleton animation="wave" /></TableCell>
+                                    </TableRow>
+                                );
+                            })
+                            
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
