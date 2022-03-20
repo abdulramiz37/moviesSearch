@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/abdulramiz37/moviesSearch.git/static/css/main.0c31f030.css",
+    "main.js": "/abdulramiz37/moviesSearch.git/static/js/main.f8be92d3.js",
+    "index.html": "/abdulramiz37/moviesSearch.git/index.html",
+    "main.0c31f030.css.map": "/abdulramiz37/moviesSearch.git/static/css/main.0c31f030.css.map",
+    "main.f8be92d3.js.map": "/abdulramiz37/moviesSearch.git/static/js/main.f8be92d3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c31f030.css",
+    "static/js/main.f8be92d3.js"
+  ]
+}
